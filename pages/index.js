@@ -1,27 +1,34 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Navbar from '../components/navbar'
+import Layout from '../components/layout'
 import Carousel from '../components/carousel'
-import Footer from '../components/footer'
+import React from 'react'
+import { signIn, signOut, useSession } from 'next-auth/client'
+
+/*
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <Layout home>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous"></link>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossOrigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossOrigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossOrigin="anonymous"></script>
+        <title>Cube Root Live</title>
       </Head>
-      <Navbar/>
-      <div className="home">
-        <div className="conatiner">
-          <Carousel/>
-        </div>
-      </div>
-      <Footer/>
-    </div>
+      <Carousel/>
+    </Layout>
+    
   )
+}*/
+
+export default function Page() {
+  const [ session, loading ] = useSession()
+
+  return <>
+    {!session && <>
+      Not signed in <br/>
+      <button onClick={signIn}>Sign in</button>
+    </>}
+    {session && <>
+      Signed in as {session.user.email} <br/>
+      <button onClick={signOut}>Sign out</button>
+    </>}
+  </>
 }
